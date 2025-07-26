@@ -3,7 +3,9 @@
  */
 package rubrica;
 
-import rubrica.gui.TableGUI;
+import rubrica.controller.PersonController;
+import rubrica.gui.PersonView;
+import rubrica.model.PersonManager;
 
 public class App {
     public String getGreeting() {
@@ -12,7 +14,9 @@ public class App {
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            new TableGUI();
+            PersonView view = new PersonView();
+            PersonManager model = new PersonManager();
+            new PersonController(model, view);
         });
     }
 }

@@ -12,15 +12,16 @@ import javax.swing.*;
 
 import rubrica.model.Person;
 
-public class TableGUI implements ActionListener{
+public class PersonView {
 
     Vector<Person> persons; 
     JTable table;
     JButton newBtn;
     JButton modifyBtn;
+    JButton deleteBtn;
     JFrame frame;
 
-    public TableGUI() {
+    public PersonView() {
 
         frame = new JFrame("Rubrica");
 
@@ -45,10 +46,8 @@ public class TableGUI implements ActionListener{
         JPanel panel = new JPanel();
        
         newBtn = new JButton("Nuovo");
-        newBtn.addActionListener(this);
         modifyBtn = new JButton("Modifica");
-        modifyBtn.addActionListener(this);
-        JButton deleteBtn = new JButton("Elimina");
+        deleteBtn = new JButton("Elimina");
         panel.add(newBtn);
         panel.add(modifyBtn);
         panel.add(deleteBtn);
@@ -58,23 +57,23 @@ public class TableGUI implements ActionListener{
         frame.setVisible(true);
         
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        int row = this.table.getSelectedRow();
-        if (e.getSource() == newBtn) {
-            new PersonEditorGUI();
-       } else if (e.getSource() == modifyBtn)
-       {
-        if (row < 0) {
-            JOptionPane.showMessageDialog(frame, "Per modificare devi prima selezionare"+
-            " una persona", "Errore", JOptionPane.ERROR_MESSAGE);
-        } else {
-            new PersonEditorGUI(this.persons.get(row));
-        }
-       }
-
-        
-       
+    public Vector<Person> getPersons() {
+        return persons;
     }
-    
+    public JTable getTable() {
+        return table;
+    }
+    public JButton getNewBtn() {
+        return newBtn;
+    }
+    public JButton getModifyBtn() {
+        return modifyBtn;
+    }
+    public JButton getDeleteBtn() {
+        return deleteBtn;
+    }
+    public JFrame getFrame() {
+        return frame;
+    }
+   
 }

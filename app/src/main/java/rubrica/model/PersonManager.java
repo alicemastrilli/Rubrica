@@ -1,9 +1,7 @@
-package rubrica;
+package rubrica.model;
 
 import java.util.Vector;
 import java.util.function.Predicate;
-
-import rubrica.model.Person;
 
 public class PersonManager {
     private Vector<Person> personList;

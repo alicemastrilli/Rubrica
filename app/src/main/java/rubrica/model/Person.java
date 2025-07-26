@@ -23,6 +23,14 @@ public class Person {
         return surname;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }

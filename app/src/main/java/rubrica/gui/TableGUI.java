@@ -9,14 +9,20 @@ import java.awt.event.ActionListener;
 import javax.crypto.spec.RC2ParameterSpec;
 import javax.swing.*;
 
+
 import rubrica.model.Person;
 
 public class TableGUI implements ActionListener{
 
     Vector<Person> persons; 
+    JTable table;
+    JButton newBtn;
+    JButton modifyBtn;
+    JFrame frame;
+
     public TableGUI() {
 
-        JFrame frame = new JFrame("Rubrica");
+        frame = new JFrame("Rubrica");
 
         Person p1 = new Person("ali", "mas", "via g.", "3926", 25);
         Person p2 = new Person("fra", "diste", "via g.", "3926", 25);
@@ -31,16 +37,16 @@ public class TableGUI implements ActionListener{
         }
         Vector<String> columnNames = new Vector<>(List.of("Name", "Surname", "PhoneNumber" ));
 
-        JTable table = new JTable(rows, columnNames);
+        table = new JTable(rows, columnNames);
         JScrollPane sp = new JScrollPane(table);
-         
+
         frame.getContentPane().add(sp, BorderLayout.CENTER);   // metto la tabella al centro
 
         JPanel panel = new JPanel();
        
-        JButton newBtn = new JButton("Nuovo");
+        newBtn = new JButton("Nuovo");
         newBtn.addActionListener(this);
-        JButton modifyBtn = new JButton("Modifica");
+        modifyBtn = new JButton("Modifica");
         modifyBtn.addActionListener(this);
         JButton deleteBtn = new JButton("Elimina");
         panel.add(newBtn);
@@ -54,8 +60,21 @@ public class TableGUI implements ActionListener{
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        new PersonEditorGUI();
+        int row = this.table.getSelectedRow();
+        if (e.getSource() == newBtn) {
+            new PersonEditorGUI();
+       } else if (e.getSource() == modifyBtn)
+       {
+        if (row < 0) {
+            JOptionPane.showMessageDialog(frame, "Per modificare devi prima selezionare"+
+            " una persona", "Errore", JOptionPane.ERROR_MESSAGE);
+        } else {
+            new PersonEditorGUI(this.persons.get(row));
+        }
+       }
+
+        
+       
     }
     
 }

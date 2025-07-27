@@ -2,6 +2,7 @@ package rubrica.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -41,17 +42,25 @@ public class PersonController implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
          int row = table.getSelectedRow();
-        if (e.getSource() == newBtn) {
-            new PersonEditorGUI();
-       } else if (e.getSource() == modifyBtn)
-       {
-        if (row < 0) {
+        if (e.getSource() == modifyBtn ) {
+            if (row < 0) {
             JOptionPane.showMessageDialog(frame, "Per modificare devi prima selezionare"+
             " una persona", "Errore", JOptionPane.ERROR_MESSAGE);
-        } else {
-            new PersonEditorGUI(model, row);
+            } else {
+                try {
+                    new PersonEditorController(model, row);
+                } catch (InvocationTargetException | InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+       } else if(e.getSource() == newBtn) {
+        try {
+            new PersonEditorController(model, -1);
+        } catch (InvocationTargetException | InterruptedException e1) {
+            e1.printStackTrace();
         }
-       } else if (e.getSource() == deleteBtn){
+       } 
+       else if (e.getSource() == deleteBtn){
         if (row < 0) {
             JOptionPane.showMessageDialog(frame, "Per eliminare devi prima selezionare"+
             " una persona", "Errore", JOptionPane.ERROR_MESSAGE);

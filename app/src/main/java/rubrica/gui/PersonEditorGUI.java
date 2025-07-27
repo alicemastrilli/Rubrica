@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import org.checkerframework.checker.units.qual.t;
+
 import rubrica.model.Person;
 import rubrica.model.PersonManager;
 
@@ -18,42 +20,44 @@ public class PersonEditorGUI {
     private static Integer COL_NUMBER = 2;
     private Vector<String> rowNames = new Vector<>(List.of("Nome", "Cognome", "Indirizzo", "Telefono", "Età" ));
     private Vector<String> person;
-    public PersonEditorGUI(PersonManager model, int numPerson) {
-        Person person = model.getPersonList().get(numPerson);
-        this.person = new Vector<>(List.of(
-            person.getName(),
-            person.getSurname(),
-            person.getAddress(),
-            person.getPhoneNumber(),
-            person.getAge().toString()
-        ));
-        this.openEditor();
+    private Vector<JTextField> textFields;
+    public JButton getSaveBtn() {
+        return saveBtn;
     }
-    public PersonEditorGUI() {
-        this.person = new Vector<>(List.of("", "", "", "", ""));
-        this.openEditor();
+    public JButton getCancelBtn() {
+        return cancelBtn;
     }
-    private void openEditor(){
-        JFrame f = new JFrame("editor-persona");
-        
-
+    public JFrame getFrame() {
+        return f;
+    }
+    private JButton saveBtn;
+    private JButton cancelBtn;
+    private JFrame f; 
+    public PersonEditorGUI(Vector<String> person) {
+        this.person = person;
+        f = new JFrame("editor-persona");
         f.setSize(500,300);
         f.getContentPane().setLayout(new BorderLayout());
         JPanel panel = new JPanel(new GridLayout(ROW_NUMBER, COL_NUMBER));
+        this.textFields = new Vector<>();
         for(int i = 0; i < ROW_NUMBER; i++ ){
             panel.add(new JLabel(rowNames.get(i)));
-            panel.add(new JTextField(this.person.get(i)));
+            JTextField textField = new JTextField(this.person.get(i));
+            this.textFields.add(textField);
+            panel.add(textField);
         }
 
         f.getContentPane().add(panel, BorderLayout.CENTER);
         JPanel btnPanel = new JPanel();
-        JButton saveBtn = new JButton("Salva");
-        //newBtn.addActionListener(this);
-        JButton cancelBtn = new JButton("Annulla");
-        //modifyBtn.addActionListener(this);
+        //TODO: aggiungere controllo sui valori inseriri prima di salvare
+        saveBtn = new JButton("Salva");
+        cancelBtn = new JButton("Annulla");
         btnPanel.add(saveBtn);
         btnPanel.add(cancelBtn);
         f.getContentPane().add(btnPanel, BorderLayout.SOUTH);
         f.setVisible(true);
+    }
+    public List<String> getValues() {
+        return this.textFields.stream().map(JTextField::getText).toList();
     }
 }

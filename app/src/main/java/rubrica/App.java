@@ -14,8 +14,9 @@ public class App {
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            PersonView view = new PersonView();
             PersonManager model = new PersonManager();
+            PersonView view = new PersonView(model);
+
             new PersonController(model, view);
         });
     }

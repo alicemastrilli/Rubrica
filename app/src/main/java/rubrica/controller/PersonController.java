@@ -33,7 +33,7 @@ public class PersonController implements ActionListener{
         this.newBtn = view.getNewBtn();
         this.modifyBtn = view.getModifyBtn();
         this.deleteBtn = view.getDeleteBtn();
-        this.persons = view.getPersons();
+        this.persons = model.getPersonList();
         this.newBtn.addActionListener(this);
         this.modifyBtn.addActionListener(this);
         this.deleteBtn.addActionListener(this);
@@ -49,7 +49,7 @@ public class PersonController implements ActionListener{
             JOptionPane.showMessageDialog(frame, "Per modificare devi prima selezionare"+
             " una persona", "Errore", JOptionPane.ERROR_MESSAGE);
         } else {
-            new PersonEditorGUI(persons.get(row));
+            new PersonEditorGUI(model, row);
         }
        } else if (e.getSource() == deleteBtn){
         if (row < 0) {

@@ -8,37 +8,30 @@ import java.awt.event.ActionListener;
 
 import javax.crypto.spec.RC2ParameterSpec;
 import javax.swing.*;
-
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.TableColumnModel;
 
 import rubrica.model.Person;
+import rubrica.model.PersonManager;
 
 public class PersonView {
 
-    Vector<Person> persons; 
     JTable table;
     JButton newBtn;
     JButton modifyBtn;
     JButton deleteBtn;
     JFrame frame;
-
-    public PersonView() {
-
+    public PersonView(PersonManager model) {
+        
         frame = new JFrame("Rubrica");
 
-        Person p1 = new Person("ali", "mas", "via g.", "3926", 25);
-        Person p2 = new Person("fra", "diste", "via g.", "3926", 25);
-        this.persons = new Vector<>(List.of(p1,p2));
-
+       
         frame.setSize(500,300);
         frame.getContentPane().setLayout(new BorderLayout());
 
         Vector<Vector<String>> rows = new Vector<>();
-        for (Person p : this.persons) {
-            rows.add(new Vector<>(List.of(p.getName(), p.getSurname(), p.getPhoneNumber())));
-        }
-        Vector<String> columnNames = new Vector<>(List.of("Name", "Surname", "PhoneNumber" ));
 
-        table = new JTable(rows, columnNames);
+        table = new JTable(model);
         JScrollPane sp = new JScrollPane(table);
 
         frame.getContentPane().add(sp, BorderLayout.CENTER);   // metto la tabella al centro
@@ -57,9 +50,7 @@ public class PersonView {
         frame.setVisible(true);
         
     }
-    public Vector<Person> getPersons() {
-        return persons;
-    }
+
     public JTable getTable() {
         return table;
     }

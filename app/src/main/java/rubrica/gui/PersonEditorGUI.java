@@ -11,13 +11,15 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import rubrica.model.Person;
+import rubrica.model.PersonManager;
 
 public class PersonEditorGUI {
     private static Integer ROW_NUMBER = 5;
     private static Integer COL_NUMBER = 2;
     private Vector<String> rowNames = new Vector<>(List.of("Nome", "Cognome", "Indirizzo", "Telefono", "Età" ));
     private Vector<String> person;
-    public PersonEditorGUI(Person person) {
+    public PersonEditorGUI(PersonManager model, int numPerson) {
+        Person person = model.getPersonList().get(numPerson);
         this.person = new Vector<>(List.of(
             person.getName(),
             person.getSurname(),

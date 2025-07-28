@@ -6,14 +6,10 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
-import org.checkerframework.checker.units.qual.t;
-
-import rubrica.model.Person;
-import rubrica.model.PersonManager;
 
 public class PersonEditorGUI {
     private static Integer ROW_NUMBER = 5;
@@ -21,6 +17,7 @@ public class PersonEditorGUI {
     private Vector<String> rowNames = new Vector<>(List.of("Nome", "Cognome", "Indirizzo", "Telefono", "Età" ));
     private Vector<String> person;
     private Vector<JTextField> textFields;
+    private JOptionPane optionPane;
     public JButton getSaveBtn() {
         return saveBtn;
     }
@@ -57,6 +54,7 @@ public class PersonEditorGUI {
         f.getContentPane().add(btnPanel, BorderLayout.SOUTH);
         f.setVisible(true);
     }
+
     public List<String> getValues() {
         return this.textFields.stream().map(JTextField::getText).toList();
     }

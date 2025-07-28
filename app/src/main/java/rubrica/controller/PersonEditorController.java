@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import rubrica.gui.PersonEditorGUI;
 import rubrica.gui.PersonView;
@@ -51,13 +52,37 @@ public class PersonEditorController implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == saveBtn) {
             List<String> values = this.view.getValues();
+            String name = values.get(0);
+            String surname = values.get(1);
+            String phoneNumber = values.get(3);
+            /**
+             *  Controlli input: 
+             *  - obbligatorio inserire almeno nome o cognome e numero di telefono
+             *  */
+
+            if(name.isEmpty() && surname.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                frame,
+                "Il nome o il cognome sono obbligatori.",
+                "Errore di validazione",
+                JOptionPane.ERROR_MESSAGE
+            );
+                return;
+            }
+            if(phoneNumber.isEmpty()) {
+                JOptionPane.showMessageDialog(
+                frame,
+                "Il numero di telefono è obbligatorio.",
+                "Errore di validazione",
+                JOptionPane.ERROR_MESSAGE
+                );
+               return;
+            }
             Person p = new Person(values.get(0), values.get(1), values.get(2),
-            values.get(3), Integer.parseInt(values.get(4))); 
+            values.get(3), values.get(4).isEmpty() ? null: Integer.parseInt(values.get(4))); 
             if (this.numRow < 0) {
                 // aggiungo
-                System.out.println("pressed save");
-                this.model.addNewPerson(p);
-                
+                this.model.addNewPerson(p);                
             } else {
                 //modifico
                 this.model.updatePerson(this.model.getPersonList().get(numRow), p);

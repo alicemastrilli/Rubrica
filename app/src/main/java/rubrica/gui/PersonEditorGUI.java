@@ -1,14 +1,19 @@
 package rubrica.gui;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import rubrica.controller.PersonEditorController;
 
 public class PersonEditorGUI {
     private static final String WINDOW_NAME = "Editor persona";
@@ -17,13 +22,13 @@ public class PersonEditorGUI {
     private static final Dimension WINDOW_DIMENSION = new Dimension(500, 300);
     private static final Integer ROW_NUMBER = 5;
     private static final Integer COL_NUMBER = 2;
-    private Vector<String> rowNames = new Vector<>(List.of("Nome", "Cognome", "Indirizzo", "Telefono", "Età" ));
+    private Vector<String> rowNames = new Vector<>(List.of("Nome", "Cognome", "Indirizzo", "Telefono", "Età"));
     private Vector<String> person;
     private Vector<JTextField> textFields;
-
     private JButton saveBtn;
     private JButton cancelBtn;
-    private JFrame f; 
+    private JFrame f;
+
     public PersonEditorGUI(Vector<String> person) {
         this.person = person;
         f = new JFrame(WINDOW_NAME);
@@ -31,7 +36,7 @@ public class PersonEditorGUI {
         f.getContentPane().setLayout(new BorderLayout());
         JPanel panel = new JPanel(new GridLayout(ROW_NUMBER, COL_NUMBER));
         this.textFields = new Vector<>();
-        for(int i = 0; i < ROW_NUMBER; i++ ){
+        for (int i = 0; i < ROW_NUMBER; i++) {
             panel.add(new JLabel(rowNames.get(i)));
             JTextField textField = new JTextField(this.person.get(i));
             this.textFields.add(textField);
@@ -45,18 +50,31 @@ public class PersonEditorGUI {
         btnPanel.add(saveBtn);
         btnPanel.add(cancelBtn);
         f.getContentPane().add(btnPanel, BorderLayout.SOUTH);
+
+    }
+
+    public void setObserver(PersonEditorController controller) {
+        saveBtn.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<String> values = textFields.stream().map(JTextField::getText).toList();
+                controller.onSaveButtonClicked(values);
+            }
+
+        });
+    }
+
+    public void start() {
         f.setVisible(true);
     }
-    public JButton getSaveBtn() {
-        return saveBtn;
+
+    public void showErrorDialog(String error) {
+        JOptionPane.showMessageDialog(f, error, "Errore", JOptionPane.ERROR_MESSAGE);
     }
-    public JButton getCancelBtn() {
-        return cancelBtn;
+
+    public void dispose() {
+        this.f.dispose();
     }
-    public JFrame getFrame() {
-        return f;
-    }
-    public List<String> getValues() {
-        return this.textFields.stream().map(JTextField::getText).toList();
-    }
+
 }

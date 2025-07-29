@@ -1,24 +1,14 @@
 package rubrica.controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+
 import java.lang.reflect.InvocationTargetException;
-import java.util.Vector;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-
 import rubrica.gui.PersonView;
-import rubrica.model.Person;
 import rubrica.model.PersonManager;
 
-public class PersonController{
+public class PersonController {
 
     PersonManager model;
     PersonView view;
-    Vector<Person> persons; 
 
     public PersonController(PersonManager model, PersonView view) {
         this.model = model;
@@ -52,14 +42,13 @@ public class PersonController{
             this.view.showErrorDialog("Per eliminare devi prima selezionare una persona");
         } else {
             this.view.showConfirmOnDelete("Sei sicuro di voler eliminare " +
-            this.persons.get(row).getName() + " " + this.persons.get(row).getSurname() + "?");
+                    this.model.getPersonList().get(row).getName() + " "
+                    + this.model.getPersonList().get(row).getSurname() + "?");
         }
     }
+
     public void removePerson(int row) {
-        model.removePerson(this.persons.get(row));
-    }
-    
+        model.removePerson(this.model.getPersonList().get(row));
     }
 
-
-
+}

@@ -7,32 +7,34 @@ import javax.swing.table.AbstractTableModel;
 
 public class PersonManager extends AbstractTableModel {
     Vector<String> columnNames = new Vector<>(List.of("Name", "Surname", "PhoneNumber"));
-
+    FileManage fileManager;
     private Vector<Person> personList;
 
     public PersonManager() {
-
-        Person p1 = new Person("ali", "mas", "via g.", "3926", 25);
-        Person p2 = new Person("fra", "diste", "via g.", "3926", 25);
-        this.personList = new Vector<>(List.of(p1, p2));
+        this.fileManager = new FileManage();
+        this.personList = fileManager.readFile();
+        System.out.println("LEtto " + this.personList);
 
     }
 
     public void addNewPerson(Person person) {
         this.personList.add(person);
         fireTableRowsInserted(personList.size(), personList.size());
+        this.fileManager.saveToFile(personList);
     }
 
     public void removePerson(Person person) {
         int index = this.personList.indexOf(person);
         this.personList.remove(person);
         fireTableRowsDeleted(index, index);
+        this.fileManager.saveToFile(personList);
     }
 
     public void updatePerson(Person p1, Person p2) {
         int index = this.personList.indexOf(p1);
         this.personList.set(index, p2);
         fireTableCellUpdated(index, index);
+        this.fileManager.saveToFile(personList);
     }
 
     public Vector<Person> getPersonList() {

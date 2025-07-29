@@ -8,9 +8,6 @@ import rubrica.gui.PersonViewImpl;
 import rubrica.model.PersonManager;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {

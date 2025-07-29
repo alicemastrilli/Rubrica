@@ -1,4 +1,4 @@
-package rubrica.gui;
+package rubrica.view;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

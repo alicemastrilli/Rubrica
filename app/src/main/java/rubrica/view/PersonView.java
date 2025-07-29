@@ -1,4 +1,4 @@
-package rubrica.gui;
+package rubrica.view;
 
 import rubrica.controller.PersonController;
 

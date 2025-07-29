@@ -3,8 +3,8 @@ package rubrica.controller;
 
 import java.lang.reflect.InvocationTargetException;
 
-import rubrica.gui.PersonView;
 import rubrica.model.PersonManager;
+import rubrica.view.PersonView;
 
 public class PersonControllerImpl implements PersonController {
 

@@ -4,10 +4,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Vector;
 
-import rubrica.gui.PersonEditorGUI;
-import rubrica.gui.PersonEditorGUIImpl;
 import rubrica.model.Person;
 import rubrica.model.PersonManager;
+import rubrica.view.PersonEditorGUI;
+import rubrica.view.PersonEditorGUIImpl;
 
 public class PersonEditorControllerImpl implements PersonEditorController {
 

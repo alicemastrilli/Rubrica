@@ -3,18 +3,16 @@
  */
 package rubrica;
 
-import rubrica.controller.PersonControllerImpl;
-import rubrica.gui.PersonViewImpl;
-import rubrica.model.PersonManager;
+import rubrica.controller.LoginController;
+import rubrica.view.LoginView;
 
 public class App {
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            PersonManager model = new PersonManager();
-            PersonViewImpl view = new PersonViewImpl(model);
+            LoginView view = new LoginView();
 
-            new PersonControllerImpl(model, view);
+            new LoginController(view);
         });
     }
 }

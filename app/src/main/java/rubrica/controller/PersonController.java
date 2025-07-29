@@ -10,74 +10,55 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
-import org.checkerframework.checker.units.qual.m;
-
-import rubrica.gui.PersonEditorGUI;
 import rubrica.gui.PersonView;
 import rubrica.model.Person;
 import rubrica.model.PersonManager;
 
-public class PersonController implements ActionListener{
+public class PersonController{
 
     PersonManager model;
     PersonView view;
     Vector<Person> persons; 
-    JTable table;
-    JButton newBtn;
-    JButton modifyBtn;
-    JButton deleteBtn;
-    JFrame frame;
+
     public PersonController(PersonManager model, PersonView view) {
         this.model = model;
         this.view = view;
-        this.table = view.getTable();
-        this.newBtn = view.getNewBtn();
-        this.modifyBtn = view.getModifyBtn();
-        this.deleteBtn = view.getDeleteBtn();
-        this.persons = model.getPersonList();
-        this.newBtn.addActionListener(this);
-        this.modifyBtn.addActionListener(this);
-        this.deleteBtn.addActionListener(this);
+        this.view.setObserver(this);
+        this.view.start();
     }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-         int row = table.getSelectedRow();
-        if (e.getSource() == modifyBtn ) {
-            if (row < 0) {
-            JOptionPane.showMessageDialog(frame, "Per modificare devi prima selezionare"+
-            " una persona", "Errore", JOptionPane.ERROR_MESSAGE);
-            } else {
-                try {
-                    new PersonEditorController(model, row);
-                } catch (InvocationTargetException | InterruptedException e1) {
-                    e1.printStackTrace();
-                }
-            }
-       } else if(e.getSource() == newBtn) {
+
+    public void addNewPerson() {
         try {
             new PersonEditorController(model, -1);
         } catch (InvocationTargetException | InterruptedException e1) {
             e1.printStackTrace();
         }
-       } 
-       else if (e.getSource() == deleteBtn){
+    }
+
+    public void modifyPerson(int row) {
         if (row < 0) {
-            JOptionPane.showMessageDialog(frame, "Per eliminare devi prima selezionare"+
-            " una persona", "Errore", JOptionPane.ERROR_MESSAGE);
+            this.view.showErrorDialog("Per modificare devi prima selezionare una persona");
         } else {
-            int choise = JOptionPane.showConfirmDialog(frame, "Sei sicuro di voler eliminare " +
-            this.persons.get(row).getName() + " " + this.persons.get(row).getSurname() + "?",
-             null, JOptionPane.YES_NO_OPTION);
-            if (choise == JOptionPane.YES_OPTION) {
-                model.removePerson(this.persons.get(row));
-
-            }  
+            try {
+                new PersonEditorController(model, row);
+            } catch (InvocationTargetException | InterruptedException e1) {
+                e1.printStackTrace();
+            }
         }
-       }
+    }
 
-        
-       
-    }    
+    public void onDeleteButtonClicked(int row) {
+        if (row < 0) {
+            this.view.showErrorDialog("Per eliminare devi prima selezionare una persona");
+        } else {
+            this.view.showConfirmOnDelete("Sei sicuro di voler eliminare " +
+            this.persons.get(row).getName() + " " + this.persons.get(row).getSurname() + "?");
+        }
+    }
+    public void removePerson(int row) {
+        model.removePerson(this.persons.get(row));
+    }
+    
     }
 
 

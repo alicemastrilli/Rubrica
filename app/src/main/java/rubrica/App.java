@@ -3,8 +3,8 @@
  */
 package rubrica;
 
-import rubrica.controller.PersonController;
-import rubrica.gui.PersonView;
+import rubrica.controller.PersonControllerImpl;
+import rubrica.gui.PersonViewImpl;
 import rubrica.model.PersonManager;
 
 public class App {
@@ -15,9 +15,9 @@ public class App {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
             PersonManager model = new PersonManager();
-            PersonView view = new PersonView(model);
+            PersonViewImpl view = new PersonViewImpl(model);
 
-            new PersonController(model, view);
+            new PersonControllerImpl(model, view);
         });
     }
 }

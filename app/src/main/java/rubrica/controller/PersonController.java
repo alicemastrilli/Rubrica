@@ -1,54 +1,13 @@
 package rubrica.controller;
 
+public interface PersonController {
 
-import java.lang.reflect.InvocationTargetException;
-import rubrica.gui.PersonView;
-import rubrica.model.PersonManager;
+    void addNewPerson();
 
-public class PersonController {
+    void modifyPerson(int row);
 
-    PersonManager model;
-    PersonView view;
+    void onDeleteButtonClicked(int row);
 
-    public PersonController(PersonManager model, PersonView view) {
-        this.model = model;
-        this.view = view;
-        this.view.setObserver(this);
-        this.view.start();
-    }
-
-    public void addNewPerson() {
-        try {
-            new PersonEditorController(model, -1);
-        } catch (InvocationTargetException | InterruptedException e1) {
-            e1.printStackTrace();
-        }
-    }
-
-    public void modifyPerson(int row) {
-        if (row < 0) {
-            this.view.showErrorDialog("Per modificare devi prima selezionare una persona");
-        } else {
-            try {
-                new PersonEditorController(model, row);
-            } catch (InvocationTargetException | InterruptedException e1) {
-                e1.printStackTrace();
-            }
-        }
-    }
-
-    public void onDeleteButtonClicked(int row) {
-        if (row < 0) {
-            this.view.showErrorDialog("Per eliminare devi prima selezionare una persona");
-        } else {
-            this.view.showConfirmOnDelete("Sei sicuro di voler eliminare " +
-                    this.model.getPersonList().get(row).getName() + " "
-                    + this.model.getPersonList().get(row).getSurname() + "?");
-        }
-    }
-
-    public void removePerson(int row) {
-        model.removePerson(this.model.getPersonList().get(row));
-    }
+    void removePerson(int row);
 
 }

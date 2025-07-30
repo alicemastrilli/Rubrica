@@ -15,7 +15,6 @@ public class PersonManager extends AbstractTableModel {
     private PersonDao personDao;
 
     public PersonManager(Connection connection) {
-        System.out.println("LEtto " + this.personList);
         this.personDao = new PersonDaoImpl(connection);
         this.personList = personDao.getAll();
     }

@@ -4,12 +4,14 @@
 package rubrica;
 
 import rubrica.controller.LoginController;
+import rubrica.db.UserDb;
 import rubrica.view.LoginView;
 
 public class App {
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
+            new UserDb();
             LoginView view = new LoginView();
 
             new LoginController(view);

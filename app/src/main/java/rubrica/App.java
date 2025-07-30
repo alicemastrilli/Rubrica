@@ -11,10 +11,11 @@ public class App {
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            new UserDb();
+            UserDb userDb = new UserDb();
+            
             LoginView view = new LoginView();
 
-            new LoginController(view);
+            new LoginController(view, userDb.getConnection());
         });
     }
 }

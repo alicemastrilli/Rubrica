@@ -60,8 +60,10 @@ public class PersonEditorControllerImpl implements PersonEditorController {
             // aggiungo
             this.model.addNewPerson(p);
         } else {
+            Person oldP = this.model.getPersonList().get(numRow);
+            p.setId(oldP.getId());
             // modifico
-            this.model.updatePerson(this.model.getPersonList().get(numRow), p);
+            this.model.updatePerson(oldP, p);
         }
         view.dispose();
     }

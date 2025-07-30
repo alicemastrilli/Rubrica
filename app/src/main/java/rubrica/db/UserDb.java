@@ -36,5 +36,8 @@ public class UserDb {
             }
         }
     }
+    public Connection getConnection() {
+        return this.conn;
+    }
 
 }

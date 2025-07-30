@@ -37,6 +37,7 @@ public class PersonViewImpl implements PersonView {
 
         frame.getContentPane().add(sp, BorderLayout.CENTER); // metto la tabella al centro
 
+        JToolBar toolBar = new JToolBar();
         JPanel panel = new JPanel();
 
         newBtn = new JButton(ADD_BTN_NAME);
@@ -45,7 +46,8 @@ public class PersonViewImpl implements PersonView {
         panel.add(newBtn);
         panel.add(modifyBtn);
         panel.add(deleteBtn);
-        frame.getContentPane().add(panel, BorderLayout.SOUTH);
+        toolBar.add(panel);
+        frame.getContentPane().add(toolBar, BorderLayout.SOUTH);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null); 
     }

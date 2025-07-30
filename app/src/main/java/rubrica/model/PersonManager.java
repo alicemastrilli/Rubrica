@@ -37,7 +37,7 @@ public class PersonManager extends AbstractTableModel {
     public void updatePerson(Person p1, Person p2) {
         int index = this.personList.indexOf(p1);
         this.personList.set(index, p2);
-        fireTableCellUpdated(index, index);
+        fireTableRowsUpdated(index, index);
         this.personDao.update(p2);
         //this.fileManager.saveToDirectory(personList);
     }

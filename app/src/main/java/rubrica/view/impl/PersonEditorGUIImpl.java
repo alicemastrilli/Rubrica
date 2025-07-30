@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.JToolBar;
 
 import rubrica.controller.PersonEditorController;
 import rubrica.view.PersonEditorGUI;
@@ -45,12 +46,14 @@ public class PersonEditorGUIImpl implements PersonEditorGUI {
         }
 
         f.getContentPane().add(panel, BorderLayout.CENTER);
+        JToolBar toolBar = new JToolBar();
         JPanel btnPanel = new JPanel();
         saveBtn = new JButton(SAVE_BTN_NAME);
         cancelBtn = new JButton(CANCEL_BTN_NAME);
         btnPanel.add(saveBtn);
         btnPanel.add(cancelBtn);
-        f.getContentPane().add(btnPanel, BorderLayout.SOUTH);
+        toolBar.add(btnPanel);
+        f.getContentPane().add(toolBar, BorderLayout.SOUTH);
         f.setLocationRelativeTo(null); 
     }
 

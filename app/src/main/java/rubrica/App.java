@@ -3,19 +3,19 @@
  */
 package rubrica;
 
-import rubrica.controller.LoginController;
-import rubrica.db.UserDb;
-import rubrica.view.LoginView;
+import rubrica.controller.impl.LoginControllerImpl;
+import rubrica.db.impl.DbConnectionImpl;
+import rubrica.view.impl.LoginViewImpl;
 
 public class App {
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
-            UserDb userDb = new UserDb();
+            DbConnectionImpl dbConnection = new DbConnectionImpl();
             
-            LoginView view = new LoginView();
+            LoginViewImpl view = new LoginViewImpl();
 
-            new LoginController(view, userDb.getConnection());
+            new LoginControllerImpl(view, dbConnection.getConnection());
         });
     }
 }

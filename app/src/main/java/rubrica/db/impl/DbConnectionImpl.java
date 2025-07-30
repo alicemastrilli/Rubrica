@@ -1,4 +1,4 @@
-package rubrica.db;
+package rubrica.db.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,13 +7,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-import rubrica.model.User;
+import rubrica.db.DbConnection;
 
-public class UserDb {
+
+public class DbConnectionImpl implements DbConnection {
     private final static String DRIVER = "jdbc:mysql://";
     Properties prop = null;
     Connection conn;
-    public UserDb() {
+    public DbConnectionImpl() {
         prop = new Properties();
         InputStream inputStream = getClass().getClassLoader()
                 .getResourceAsStream("credenziali_database.properties");
@@ -36,6 +37,7 @@ public class UserDb {
             }
         }
     }
+    @Override
     public Connection getConnection() {
         return this.conn;
     }

@@ -1,13 +1,14 @@
-package rubrica.controller;
+package rubrica.controller.impl;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Vector;
 
+import rubrica.controller.PersonEditorController;
 import rubrica.model.Person;
 import rubrica.model.PersonManager;
 import rubrica.view.PersonEditorGUI;
-import rubrica.view.PersonEditorGUIImpl;
+import rubrica.view.impl.PersonEditorGUIImpl;
 
 public class PersonEditorControllerImpl implements PersonEditorController {
 

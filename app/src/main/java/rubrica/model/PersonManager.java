@@ -6,16 +6,17 @@ import java.util.Vector;
 
 import javax.swing.table.AbstractTableModel;
 
+import rubrica.db.PersonDao;
+import rubrica.db.impl.PersonDaoImpl;
+
 public class PersonManager extends AbstractTableModel {
     Vector<String> columnNames = new Vector<>(List.of("Name", "Surname", "PhoneNumber"));
-    FileManage fileManager;
     private Vector<Person> personList;
     private PersonDao personDao;
 
     public PersonManager(Connection connection) {
-        this.fileManager = new FileManage();
         System.out.println("LEtto " + this.personList);
-        this.personDao = new PersonDao(connection);
+        this.personDao = new PersonDaoImpl(connection);
         this.personList = personDao.getAll();
     }
 

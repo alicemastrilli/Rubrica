@@ -1,4 +1,4 @@
-package rubrica.view;
+package rubrica.view.impl;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,6 +9,7 @@ import javax.swing.*;
 
 import rubrica.controller.PersonController;
 import rubrica.model.PersonManager;
+import rubrica.view.PersonView;
 
 public class PersonViewImpl implements PersonView {
     private static final String WINDOW_NAME = "Rubrica";
@@ -46,7 +47,7 @@ public class PersonViewImpl implements PersonView {
         panel.add(deleteBtn);
         frame.getContentPane().add(panel, BorderLayout.SOUTH);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-
+        frame.setLocationRelativeTo(null); 
     }
 
     @Override

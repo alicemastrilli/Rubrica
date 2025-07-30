@@ -1,4 +1,4 @@
-package rubrica.model;
+package rubrica.db.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,13 +8,17 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.Vector;
 
-public class PersonDao {
+import rubrica.db.PersonDao;
+import rubrica.model.Person;
+
+public class PersonDaoImpl implements PersonDao {
     private Connection connection;
 
-    public PersonDao(Connection connection) {
+    public PersonDaoImpl(Connection connection) {
         this.connection = connection;
     }
 
+    @Override
     public void insert(Person person) {
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -50,6 +54,7 @@ public class PersonDao {
         }
     }
 
+    @Override
     public void update(Person person) {
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -75,6 +80,7 @@ public class PersonDao {
         }
     }
 
+    @Override
     public void deleteById(Integer id) {
         try {
             PreparedStatement statement = connection.prepareStatement(
@@ -89,6 +95,7 @@ public class PersonDao {
         }
     }
 
+    @Override
     public Vector<Person> getAll() {
         Vector<Person> persons = new Vector<>();
         try {

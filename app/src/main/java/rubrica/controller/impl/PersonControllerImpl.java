@@ -1,8 +1,9 @@
-package rubrica.controller;
+package rubrica.controller.impl;
 
 
 import java.lang.reflect.InvocationTargetException;
 
+import rubrica.controller.PersonController;
 import rubrica.model.PersonManager;
 import rubrica.view.PersonView;
 

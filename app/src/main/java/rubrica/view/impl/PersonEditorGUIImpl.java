@@ -1,4 +1,4 @@
-package rubrica.view;
+package rubrica.view.impl;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import rubrica.controller.PersonEditorController;
+import rubrica.view.PersonEditorGUI;
 
 public class PersonEditorGUIImpl implements PersonEditorGUI {
     private static final String WINDOW_NAME = "Editor persona";
@@ -50,7 +51,7 @@ public class PersonEditorGUIImpl implements PersonEditorGUI {
         btnPanel.add(saveBtn);
         btnPanel.add(cancelBtn);
         f.getContentPane().add(btnPanel, BorderLayout.SOUTH);
-
+        f.setLocationRelativeTo(null); 
     }
 
     @Override

@@ -1,5 +1,9 @@
 package rubrica.db.impl;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -9,16 +13,19 @@ import java.util.Properties;
 
 import rubrica.db.DbConnection;
 
-
 public class DbConnectionImpl implements DbConnection {
     private final static String DRIVER = "jdbc:mysql://";
-    Properties prop = null;
-    Connection conn;
+    private final static String PROPERTIES_FILE = "credenziali_database.properties";
+    private Properties prop = null;
+    private Connection conn;
+
     public DbConnectionImpl() {
         prop = new Properties();
-        InputStream inputStream = getClass().getClassLoader()
-                .getResourceAsStream("credenziali_database.properties");
-        if (inputStream != null) {
+        InputStream inputStream;
+        try {
+            File file = new File(PROPERTIES_FILE);
+            inputStream = file.exists() ? new FileInputStream(file) : getClass().getClassLoader().getResourceAsStream(PROPERTIES_FILE) ;
+            if (inputStream != null) {
             try {
                 prop.load(inputStream);
                 String user = prop.getProperty("db.user");
@@ -35,8 +42,15 @@ public class DbConnectionImpl implements DbConnection {
                
                 e.printStackTrace();
             }
+        
+        }
+        }  catch (IOException e) {
+            throw new RuntimeException("Errore caricando le credenziali del database", e);
         }
     }
+
+    
+
     @Override
     public Connection getConnection() {
         return this.conn;
